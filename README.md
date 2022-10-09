@@ -1,4 +1,4 @@
-# Browser-Idle-TimeTracker_react-idle-timer
+# Application-Idle-TimeTracker_react-idle-timer
 
 Tracks user interaction and identifies if application left without any user interaction for certain time and logs out of the application.
 
@@ -7,6 +7,6 @@ Tracks user interaction and identifies if application left without any user inte
 - react-idle-timer
 
 Ref: Working application gif available within `./browser-idle-timeTracker/resource/`
-![](./browser-idle-timeTracker/resource/IdelTimeTrackerScreenprint.png)
+![](./browser-idle-timeTracker/resource/IdleTimeTrackerScreenprint.png)
 ![](./browser-idle-timeTracker/resource/Idle_Time_Tracker_KeepLoggedIn.gif)
 ![](./browser-idle-timeTracker/resource/Idle_Time_Tracker_LogsOut.gif)
