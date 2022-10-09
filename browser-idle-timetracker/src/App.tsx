@@ -14,7 +14,7 @@ export default function Facebook() {
   const {
     start
   } = useIdleTimer({
-    timeout: auth ? 3000 : 500000,
+    timeout: auth ? 30000 : 500000,
     onAction: () => { setSessionIdle(false); },
     debounce: 500,
     onIdle: () => { setSessionIdle(true); },
