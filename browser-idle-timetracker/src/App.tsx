@@ -5,7 +5,7 @@ import VideoThumbnails from './components/VideoThumbnails';
 import Navigator from './components/Navigator';
 import IdleTimeModal from './components/IdleTimeModal'
 
-export default function Facebook() {
+export default function App() {
   const [auth, setAuth] = React.useState(false);
   const [extendSession, setExtendSession] = React.useState(false);
   const [open, setOpen] = React.useState(false);
