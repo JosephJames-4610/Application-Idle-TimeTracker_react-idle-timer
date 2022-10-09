@@ -9,11 +9,11 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Skeleton from '@mui/material/Skeleton';
 
-interface VideoThumbnails {
+interface VideoThumbnailsProps {
   loading?: boolean;
 }
 
-export default function VideoThumbnails(props: VideoThumbnails) {
+export default function VideoThumbnails(props: VideoThumbnailsProps) {
   const { loading = false } = props;
 
   return (

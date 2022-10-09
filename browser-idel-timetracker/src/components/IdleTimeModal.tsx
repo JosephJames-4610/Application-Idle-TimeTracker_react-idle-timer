@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -18,18 +19,33 @@ const style = {
 
 interface IdleTimeModalProps {
   open: boolean;
-  setOpen: (open: boolean) => void;   
+  handleLogOut: () => void;   
+  handleStaySignedIn: () => void;   
 };
 
-export default function IdleTimeModal({ open, setOpen }: IdleTimeModalProps) {
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function IdleTimeModal({ open, handleLogOut, handleStaySignedIn }: IdleTimeModalProps) {
+  const [timerValue, setTimerValue] = React.useState<number>(30);
+
+  React.useEffect(() => {
+    if (open) {
+      let secondsCount = 0;
+      const sessionTimer = setInterval(function () {
+        secondsCount += 1;
+        let timerLocalValue = timerValue - secondsCount;
+        setTimerValue((timerValue) => timerValue - 1);
+        if (!open || timerLocalValue === 0) { clearInterval(sessionTimer); handleLogOut(); setTimerValue(30); }
+      }, 1000);
+    }
+  }, [open])
+
+  const seconds = String(timerValue % 60).padStart(2, '0');
+  const minutes = String(Math.floor(timerValue / 60)).padStart(2, '0');
 
   return (
     <div>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={handleLogOut}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -40,8 +56,18 @@ export default function IdleTimeModal({ open, setOpen }: IdleTimeModalProps) {
           <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: 18 }}>
             This session should not be kept idle for more than a 30 second after user logged in. If no action taken, session automatically gets signs out.
           </Typography>
+          <Box sx={{ mt: 4 }}>
+            <TextField
+              id="outlined-read-only-input"
+              label="Session Expiry Time"
+              value={`${minutes}:${seconds}`}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          </Box>
           <Box sx={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'row-reverse' }}>
-            <Button variant='contained' onClick={handleOpen} sx={{ mt: 4 }}>Stay Signed In</Button>
+            <Button variant='contained' onClick={() => { handleStaySignedIn(); setTimerValue(30);}} sx={{ mt: 4 }}>Stay Signed In</Button>
           </Box>
         </Box>
       </Modal>
